@@ -23,7 +23,7 @@
             <h4><span id="temp"></span><sup>°</sup>C</h4>
             <img src="" id="icon" alt="Weather Icon">
 
-            <button onclick="window.location.reload()" class="refresh"><i class="fa fa-refresh"></i></button>
+            <button onclick="clearweather()" class="refresh"><i class="fa fa-refresh"></i></button>
         </div>
     </div>
 
@@ -55,6 +55,13 @@
 
             document.getElementById('city').value = "";
         }
+        function clearweather() {
+    document.getElementById('location').innerHTML = "";
+    document.getElementById('weather').innerHTML = "";
+    document.getElementById('temp').innerHTML = "";
+    document.getElementById('icon').src = "";
+    document.getElementById('city').value = "";
+}
     </script>
 </body>
 </html>
