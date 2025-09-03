@@ -23,18 +23,28 @@
             <h4><span id="temp"></span><sup>°</sup>C</h4>
             <img src="" id="icon" alt="Weather Icon">
 
-            <button onclick="clearweather()" class="refresh"><i class="fa fa-refresh"></i></button>
+            <button onclick="refreshweather()" class="refresh"><i class="fa fa-refresh"></i></button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function searchfunction() {
-            let city = document.getElementById('city').value.trim();
+        let lastcity = "";
+
+        function showLoading() {
+    document.getElementById('weather').innerHTML = "Loading...";
+    document.getElementById('location').innerHTML = "";
+    document.getElementById('temp').innerHTML = "";
+    document.getElementById('icon').src = "";
+}
+        function searchfunction(cityname) {
+            let city = cityname || document.getElementById('city').value.trim();
             if (city === "") {
                 alert("Please enter a city name");
                 return;
             }
+            lastcity = city;
+            showLoading();
 
             let link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c71f715f5187d510236617561c52f653`;
             let request = new XMLHttpRequest();
@@ -55,13 +65,16 @@
 
             document.getElementById('city').value = "";
         }
-        function clearweather() {
-    document.getElementById('location').innerHTML = "";
-    document.getElementById('weather').innerHTML = "";
-    document.getElementById('temp').innerHTML = "";
-    document.getElementById('icon').src = "";
-    document.getElementById('city').value = "";
-}
+
+        function refreshweather(){
+            
+            if(lastcity){
+                searchfunction(lastcity)
+            }
+            else{
+                alert("No city data to refresh");
+            }
+        }
     </script>
 </body>
 </html>
